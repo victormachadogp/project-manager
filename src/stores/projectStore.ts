@@ -28,11 +28,17 @@ export const useProjectStore = defineStore('project', () => {
     projects.value.push(newProject)
   }
 
+  async function deleteProject(id: number) {
+    await projectApi.delete(id)
+    projects.value = projects.value.filter((p) => p.id !== id)
+  }
+
   return {
     projects,
     loading,
     totalProjects,
     fetchProjects,
     createProject,
+    deleteProject,
   }
 })

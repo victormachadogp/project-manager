@@ -18,4 +18,10 @@ export const projectApi = {
     })
     return response.json()
   },
+
+  async delete(id: number): Promise<void> {
+    await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+    })
+  },
 }

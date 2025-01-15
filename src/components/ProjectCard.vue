@@ -11,7 +11,21 @@
                     </svg>
                 </button>
 
-                <button class="bg-white w-8 h-8 rounded-full"></button>
+                <button @click="showOptions = !showOptions" class="bg-white w-8 h-8 rounded-full flex justify-center">
+                    <span class="text-[#695CCD] font-bold">...</span>
+
+                    <div v-if="showOptions"
+                        class="absolute right-0 top-0 mt-9 mb-2 bg-white rounded-lg shadow-lg py-2 min-w-[120px]">
+                        <RouterLink :to="`/project/${project.id}`"
+                            class="block px-4 py-2 text-left hover:bg-gray-100 text-sm text-[#695CCD]">
+                            Editar
+                        </RouterLink>
+                        <button @click="handleDelete"
+                            class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-sm text-[#695CCD] border-t border[#F4F2FF]">
+                            Excluir
+                        </button>
+                    </div>
+                </button>
             </div>
         </div>
         <div class="p-5">
@@ -34,8 +48,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Project } from '../types/Project';
 defineProps<{ project: Project }>();
+
+const emit = defineEmits<{
+    (e: 'delete'): void;
+}>();
 
 function formatDate(date: string): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -46,4 +65,12 @@ function formatDate(date: string): string {
     const localDate = new Date(date + 'T00:00:00');
     return localDate.toLocaleDateString('pt-BR', options);
 }
+
+const showOptions = ref(false);
+
+function handleDelete() {
+    showOptions.value = false;
+    emit('delete');
+}
+
 </script>
