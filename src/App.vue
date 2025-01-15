@@ -15,3 +15,14 @@ import { RouterLink, RouterView } from 'vue-router'
 
   <RouterView />
 </template>
+
+<style>
+* {
+  box-sizing: border-box;
+
+}
+
+body {
+  background-color: #F4F2FF;
+}
+</style>
