@@ -10,9 +10,9 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/create-project',
-      name: 'create-project',
-      component: () => import('../views/CreateProject.vue'),
+      path: '/project/:id?',
+      name: 'ProjectForm',
+      component: () => import('../views/ProjectFormView.vue'),
     },
   ],
 })
