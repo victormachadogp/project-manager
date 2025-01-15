@@ -16,20 +16,34 @@
         </div>
         <div class="p-5">
             <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#1F1283] ">Projeto 1</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#1F1283] ">{{ project.name }}</h5>
             </a>
-            <span class="mb-3text-[#717171] font-bold ">Cliente: <span class="font-light">Clicksign</span></span>
+            <span class="mb-3text-[#717171] font-bold ">Cliente: <span class="font-light">{{ project.client
+                    }}</span></span>
         </div>
         <div class="border-t border-[##ECECEC] mx-3">
             <div class="p-2">
-                <span class="text-[#717171] font-bold ">Data de Início</span>
-                <span class="text-[#1F1283] font-bold ">01/10/2021</span>
+                <span class="text-[#717171] font-normal">{{ formatDate(project.startDate) }}</span>
             </div>
             <div class="p-2">
-                <span class="text-[#717171] font-bold ">Data Final</span>
-                <span class="text-[#1F1283] font-bold ">31/10/2021</span>
+                <span class="text-[#717171] font-normal">{{ formatDate(project.endDate) }}</span>
             </div>
         </div>
     </div>
 
 </template>
+
+<script setup lang="ts">
+import type { Project } from '../types/Project';
+defineProps<{ project: Project }>();
+
+function formatDate(date: string): string {
+    const options: Intl.DateTimeFormatOptions = {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    };
+    const localDate = new Date(date + 'T00:00:00');
+    return localDate.toLocaleDateString('pt-BR', options);
+}
+</script>
