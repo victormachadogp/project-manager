@@ -34,35 +34,31 @@ export function useProjectForm() {
   })
   const errors = ref<FormErrors>({})
 
-  const isFormValid = computed(() => {
-    return (
-      form.value.name &&
-      form.value.client &&
-      form.value.startDate &&
-      form.value.endDate &&
-      !Object.keys(errors.value).length
-    )
-  })
-
   function validateForm(): boolean {
     errors.value = {}
 
-    if (!form.value.name.trim()) {
-      errors.value.name = 'Nome do projeto é obrigatório'
+    // Validação do nome do projeto (pelo menos duas palavras)
+    const nameWords = form.value.name.trim().split(/\s+/)
+    if (nameWords.length < 2) {
+      errors.value.name = 'Por favor, digite ao menos duas palavras'
     }
 
+    // Validação do cliente (pelo menos uma palavra)
     if (!form.value.client.trim()) {
-      errors.value.client = 'Cliente é obrigatório'
+      errors.value.client = 'Por favor, digite ao menos uma palavra'
     }
 
+    // Validação da data de início
     if (!form.value.startDate) {
-      errors.value.startDate = 'Data de início é obrigatória'
+      errors.value.startDate = 'Selecione uma data válida'
     }
 
+    // Validação da data final
     if (!form.value.endDate) {
-      errors.value.endDate = 'Data final é obrigatória'
+      errors.value.endDate = 'Selecione uma data válida'
     }
 
+    // Validação adicional para datas
     if (
       form.value.startDate &&
       form.value.endDate &&
@@ -75,7 +71,8 @@ export function useProjectForm() {
   }
 
   async function handleSubmit() {
-    if (!validateForm()) return
+    validateForm()
+    if (Object.keys(errors.value).length > 0) return
 
     loading.value = true
     try {
@@ -106,7 +103,7 @@ export function useProjectForm() {
           client: project.client,
           startDate: project.startDate,
           endDate: project.endDate,
-          coverImage: project.coverImage || '', // Garante que sempre terá um valor, mesmo que vazio
+          coverImage: project.coverImage || '',
         }
       }
       isEditing.value = true
@@ -118,7 +115,6 @@ export function useProjectForm() {
     errors,
     isEditing,
     loading,
-    isFormValid,
     handleSubmit,
     loadProject,
   }
