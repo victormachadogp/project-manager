@@ -16,14 +16,14 @@
         <label for="name" class="block mb-2 text-sm font-medium text-[#695CCD]">Nome do projeto
           <span class="text-xs text-[#717171] font-light">(Obrigatório)</span></label>
         <input v-model="form.name" type="text" id="name" required
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
       </div>
 
       <div class="mb-6">
         <label for="client" class="block mb-2 text-sm font-medium text-[#695CCD]">Cliente
           <span class="text-xs text-[#717171] font-light">(Obrigatório)</span></label>
         <input v-model="form.client" type="text" id="client" required
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+          class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
       </div>
 
       <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -31,13 +31,13 @@
           <label for="startDate" class="block mb-2 text-sm font-medium text-[#695CCD]">Data de Início
             <span class="text-xs text-[#717171] font-light">(Obrigatório)</span></label>
           <input v-model="form.startDate" type="date" id="startDate" required
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
         </div>
         <div>
           <label for="endDate" class="block mb-2 text-sm font-medium text-[#695CCD]">Data Final
             <span class="text-xs text-[#717171] font-light">(Obrigatório)</span></label>
           <input v-model="form.endDate" type="date" id="endDate" required
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
+            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2">
         </div>
       </div>
 
