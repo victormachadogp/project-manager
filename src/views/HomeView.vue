@@ -10,12 +10,19 @@
     </div>
 
     <div v-else>
-      <p class="text-[#717171]">{{ totalProjects }} projetos cadastrados</p>
+
+      <div class="flex justify-between">
+        <div class="flex items-center">
+          <h3 class="text-2xl">Projetos</h3>
+          <span class="text-sm">({{ totalProjects }})</span>
+        </div>
+
+        <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
+          Novo Projeto
+        </RouterLink>
+      </div>
 
 
-      <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
-        Novo Projeto
-      </RouterLink>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-5">
         <ProjectCard v-for="project in store.projects" :key="project.id" :project="project"
           @delete="showDeleteModal = true; projectToDelete = project" />
