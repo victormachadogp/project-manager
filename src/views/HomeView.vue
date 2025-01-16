@@ -10,21 +10,29 @@
     </div>
 
     <div v-else>
-
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <div class="flex items-center">
           <h3 class="text-2xl">Projetos</h3>
-          <span class="text-sm">({{ totalProjects }})</span>
+          <span class="text-sm">({{ filteredProjects.length }})</span>
         </div>
 
-        <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
-          Novo Projeto
-        </RouterLink>
+        <div class="flex items-center gap-4">
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="checkbox" v-model="showOnlyFavorites" class="sr-only peer">
+            <div
+              class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#695CCD] rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#695CCD]">
+            </div>
+            <span class="ms-3 text-sm font-medium text-[#717171]">Apenas favoritos</span>
+          </label>
+
+          <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
+            Novo Projeto
+          </RouterLink>
+        </div>
       </div>
 
-
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-5">
-        <ProjectCard v-for="project in store.projects" :key="project.id" :project="project"
+        <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project"
           @delete="showDeleteModal = true; projectToDelete = project" />
       </div>
     </div>
@@ -41,17 +49,15 @@ import { useProjectStore } from '../stores/projectStore';
 import ModalBase from '../components/ModalBase.vue';
 import type { Project } from '../types/Project';
 
-
 const store = useProjectStore();
 const showDeleteModal = ref(false);
 const projectToDelete = ref<Project | null>(null);
+const showOnlyFavorites = ref(false);
 
 const {
   totalProjects,
   loading
 } = store;
-
-
 
 async function handleDeleteProject() {
   if (projectToDelete.value) {
@@ -62,6 +68,13 @@ async function handleDeleteProject() {
 }
 
 const projects = computed(() => store.projects);
+
+const filteredProjects = computed(() => {
+  if (showOnlyFavorites.value) {
+    return projects.value.filter(project => project.isFavorite);
+  }
+  return projects.value;
+});
 
 onMounted(() => {
   store.fetchProjects();
