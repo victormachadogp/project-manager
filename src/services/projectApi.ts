@@ -19,6 +19,25 @@ export const projectApi = {
     return response.json()
   },
 
+  async getById(id: string | number): Promise<Project> {
+    const response = await fetch(`${API_URL}/${id}`)
+    if (!response.ok) {
+      throw new Error('Failed to fetch project')
+    }
+    return response.json()
+  },
+
+  async update(project: Project): Promise<Project> {
+    const response = await fetch(`${API_URL}/${project.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project),
+    })
+    return response.json()
+  },
+
   async delete(id: number): Promise<void> {
     await fetch(`${API_URL}/${id}`, {
       method: 'DELETE',

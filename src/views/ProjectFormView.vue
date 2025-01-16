@@ -2,7 +2,9 @@
 
   <div class="mb-5 pl-5">
     <RouterLink to="/" class="text-sm text-[#695CCD] hover:underline">Voltar</RouterLink>
-    <h3 class="text-[#1F1283] font-semibold text-2xl">Novo Projeto</h3>
+    <h3 class="text-[#1F1283] font-semibold text-2xl">
+      {{ isEditing ? 'Editar Projeto' : 'Novo Projeto' }}
+    </h3>
   </div>
 
   <form @submit.prevent="handleSubmit" class="border border-[#DCDCDC p-10 mx-5">
@@ -60,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '../stores/projectStore';
 
@@ -144,12 +146,21 @@ function handleImageUpload(event: Event) {
   }
 }
 
+
 async function handleSubmit() {
   if (!validateForm()) return;
 
   loading.value = true;
   try {
-    await store.createProject(form.value);
+    if (isEditing.value) {
+      await store.updateProject({
+        id: route.params.id,
+        ...form.value,
+        isFavorite: false
+      });
+    } else {
+      await store.createProject(form.value);
+    }
     router.push('/');
   } catch (error) {
     console.error('Error saving project:', error);
@@ -157,6 +168,31 @@ async function handleSubmit() {
     loading.value = false;
   }
 }
+
+onMounted(async () => {
+  const projectId = route.params.id;
+  if (projectId) {
+    const project = await store.fetchProjectById(projectId);
+    if (project) {
+      form.value = {
+        name: project.name,
+        client: project.client,
+        startDate: project.startDate,
+        endDate: project.endDate,
+        coverImage: project.coverImage
+      };
+    }
+    isEditing.value = true;
+  }
+});
+
+watch(
+  () => route.params.id,
+  (newId) => {
+    isEditing.value = !!newId;
+  },
+  { immediate: true }
+);
 </script>
 
 <style></style>

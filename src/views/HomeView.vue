@@ -4,13 +4,13 @@
       <h3 class="text-[#1F1283] font-semibold text-2xl">Nenhum Projeto</h3>
       <span class="text-[#717171]">Clique no botão abaixo para criar o primeiro e gerenciá-lo.</span>
 
-      <RouterLink to="/project/new" class="bg-[#695CCD] text-white px-5 py-3 rounded-full">
+      <RouterLink to="/project" class="bg-[#695CCD] text-white px-5 py-3 rounded-full">
         Novo Projeto
       </RouterLink>
     </div>
 
     <div v-else>
-      <RouterLink to="/project/new" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
+      <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
         Novo Projeto
       </RouterLink>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-5">
