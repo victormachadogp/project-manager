@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-xs bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
         <div class="relative">
-            <img class="rounded-t-lg w-full" src="../assets/default-background.png" alt="" />
+            <img class="rounded-t-lg w-full" :src="project.coverImage || defaultBackground" :alt="project.name" />
             <div class="absolute bottom-0 right-0 m-3 flex justify-center items-center gap-5">
                 <button @click="toggleFavorite">
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +53,8 @@
 import { ref } from 'vue';
 import type { Project } from '../types/Project';
 import { useProjectStore } from '../stores/projectStore';
+import defaultBackground from '../assets/default-background.png';
+
 
 const props = defineProps<{ project: Project }>();
 const store = useProjectStore();

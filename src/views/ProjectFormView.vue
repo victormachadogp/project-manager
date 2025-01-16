@@ -181,6 +181,7 @@ onMounted(async () => {
         endDate: project.endDate,
         coverImage: project.coverImage
       };
+      imagePreview.value = project.coverImage;
     }
     isEditing.value = true;
   }
