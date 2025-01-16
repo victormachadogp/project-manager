@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-4 flex-col sm:flex-row">
         <FavoriteToggle :model-value="showFavorites" @update:model-value="$emit('update:showFavorites', $event)" />
 
         <SortSelect :model-value="sortOption" @update:model-value="$emit('update:sortOption', $event)" />

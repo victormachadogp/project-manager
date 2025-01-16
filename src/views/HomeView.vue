@@ -1,7 +1,10 @@
 <template>
   <div>
     <TheHeader />
-    <main class="bg-white m-5 flex justify-center h-screen">
+    <main :class="[
+      'm-5 flex justify-center h-screen',
+      projects.length === 0 ? 'bg-white' : ''
+    ]">
       <div v-if="projects.length === 0" class="flex items-center justify-center flex-col space-y-5 rounded h-screen">
         <h3 class="text-[#1F1283] font-semibold text-2xl">Nenhum Projeto</h3>
         <span class="text-[#717171]">Clique no botão abaixo para criar o primeiro e gerenciá-lo.</span>
@@ -12,20 +15,22 @@
       </div>
 
       <div v-else>
-        <div class="flex justify-between items-center">
-          <div class="flex items-center">
+        <div class="flex justify-between items-center flex-col sm:flex-row">
+          <div class="flex items-center pb-4 sm:pb-0">
             <h3 class="text-2xl">Projetos</h3>
             <span class="text-sm">({{ filteredProjects.length }})</span>
           </div>
 
-          <ProjectFilters v-model:showFavorites="showOnlyFavorites" v-model:sortOption="sortBy" />
-          <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
-            Novo Projeto
-          </RouterLink>
+          <div class="flex gap-4 sm:flex-row flex-col">
+            <ProjectFilters v-model:showFavorites="showOnlyFavorites" v-model:sortOption="sortBy" />
+            <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full self-center">
+              Novo Projeto
+            </RouterLink>
+          </div>
         </div>
 
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-5">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 mt-5">
           <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project"
             @delete="openDeleteModal(project)" />
         </div>
