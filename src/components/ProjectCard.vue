@@ -1,7 +1,7 @@
 <template>
     <div class="max-w-[346px] bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
         <div class="relative  h-[231px] ">
-            <div class="overflow-hidden h-full bg-[#695ccd]">
+            <div class="overflow-hidden h-full bg-[#695ccd] rounded-t-lg">
                 <img class="rounded-t-lg w-full " :src="project.coverImage || defaultBackground" :alt="project.name"
                     @error="handleImageError" />
             </div>
