@@ -1,7 +1,7 @@
 <template>
-    <div class="max-w-xs bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
-        <div class="relative">
-            <img class="rounded-t-lg w-full" :src="project.coverImage || defaultBackground" :alt="project.name"
+    <div class="max-w-[346px] bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
+        <div class="relative  h-[231px] overflow-hidden">
+            <img class="rounded-t-lg w-full " :src="project.coverImage || defaultBackground" :alt="project.name"
                 @error="handleImageError" />
             <div class="absolute bottom-0 right-0 m-3 flex justify-center items-center gap-5">
                 <button @click="toggleFavorite">
