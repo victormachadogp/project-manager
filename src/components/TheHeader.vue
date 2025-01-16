@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div v-show="!showSearchBar" class="bg-[#1C1930] flex justify-between items-center w-full">
+    <div class="bg-[#1C1930]">
+        <div v-show="!showSearchBar" class="flex justify-between max-w-[1860px] mx-auto items-center">
             <div class="opacity-0"></div>
             <img class="w-36" src="../assets/logo.png" alt="">
             <button @click="toggleSearchBar">

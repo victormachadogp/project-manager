@@ -2,7 +2,7 @@
   <div>
     <TheHeader />
     <main :class="[
-      'm-5 flex justify-center h-screen',
+      'my-5 flex justify-center h-screen max-w-[1860px] mx-auto',
       projects.length === 0 ? 'bg-white' : ''
     ]">
       <div v-if="projects.length === 0" class="flex items-center justify-center flex-col space-y-5 rounded h-screen">
@@ -16,9 +16,9 @@
 
       <div v-else>
         <div class="flex justify-between items-center flex-col sm:flex-row">
-          <div class="flex items-center pb-4 sm:pb-0">
+          <div class="flex items-center pb-4 sm:pb-0 gap-2">
             <h3 class="text-2xl">Projetos</h3>
-            <span class="text-sm">({{ filteredProjects.length }})</span>
+            <span class="text-sm relative top-px">({{ filteredProjects.length }})</span>
           </div>
 
           <div class="flex gap-4 sm:flex-row flex-col">
@@ -30,7 +30,7 @@
         </div>
 
 
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 mt-5">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 mt-5">
           <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project"
             @delete="openDeleteModal(project)" />
         </div>
