@@ -16,11 +16,7 @@
           <span class="text-sm">({{ filteredProjects.length }})</span>
         </div>
 
-        <select v-model="sortBy" class="border border-[#DCDCDC] rounded-lg px-4 py-2 text-sm text-[#717171]">
-          <option value="alphabetical">Ordem alfabética</option>
-          <option value="startDate">Mais recentes</option>
-          <option value="endDate">Próximos ao fim</option>
-        </select>
+
 
         <div class="flex items-center gap-4">
           <label class="inline-flex items-center cursor-pointer">
@@ -30,6 +26,12 @@
             </div>
             <span class="ms-3 text-sm font-medium text-[#717171]">Apenas favoritos</span>
           </label>
+
+          <select v-model="sortBy" class="border border-[#DCDCDC] rounded-lg px-4 py-2 text-sm text-[#717171]">
+            <option value="alphabetical">Ordem alfabética</option>
+            <option value="startDate">Iniciados mais recentes</option>
+            <option value="endDate">Prazo mais próximo</option>
+          </select>
 
           <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
             Novo Projeto
