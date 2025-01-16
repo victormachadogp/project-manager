@@ -41,6 +41,9 @@
       <div>
         <span class="text-[#695CCD]">Capa do projeto</span>
         <div class="flex flex-col items-center space-y-4 border border-dotted border-[#717171] p-5 mt-2">
+
+          <IconUpload />
+
           <img v-if="imagePreview" :src="imagePreview" alt="Preview" class="max-w-xs max-h-48 object-contain mb-4">
           <span class="text-[#717171] text-sm">Escolha uma imagem .jpg ou .png no seu dispositivo</span>
           <input type="file" id="coverImage" accept="image/jpeg, image/png" class="hidden"
@@ -66,6 +69,7 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '../stores/projectStore';
 import { imageApi } from '../services/imageApi';
+import IconUpload from '@/components/icons/IconUpload.vue';
 
 
 const route = useRoute();
