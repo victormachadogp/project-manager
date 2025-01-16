@@ -1,3 +1,4 @@
+import fs from 'fs'
 import express from 'express'
 import multer from 'multer'
 import path from 'path'
@@ -43,6 +44,26 @@ app.post('/images/upload', upload.single('image'), (req, res) => {
 
   res.json({
     filePath: `/uploads/${req.file.filename}`,
+  })
+})
+
+app.delete('/images/delete', (req, res) => {
+  const filePath = req.query.path
+
+  if (!filePath) {
+    return res.status(400).json({ error: 'Caminho do arquivo não fornecido' })
+  }
+
+  // Remove /uploads/ do início do caminho para obter apenas o nome do arquivo
+  const fileName = filePath.replace('/uploads/', '')
+  const fullPath = path.join('public/uploads', fileName)
+
+  fs.unlink(fullPath, (err) => {
+    if (err) {
+      console.error('Erro ao deletar arquivo:', err)
+      return res.status(500).json({ error: 'Erro ao deletar arquivo' })
+    }
+    res.json({ message: 'Arquivo deletado com sucesso' })
   })
 })
 

@@ -17,4 +17,14 @@ export const imageApi = {
     const data = await response.json()
     return data.filePath
   },
+
+  async delete(imagePath: string): Promise<void> {
+    const response = await fetch(`${IMAGE_API_URL}/delete?path=${imagePath}`, {
+      method: 'DELETE',
+    })
+
+    if (!response.ok) {
+      throw new Error('Failed to delete image')
+    }
+  },
 }

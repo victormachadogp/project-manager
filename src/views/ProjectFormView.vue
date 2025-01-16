@@ -42,19 +42,28 @@
       </div>
 
       <div>
-        <span class="text-[#695CCD]">Capa do projeto</span>
-        <div class="flex flex-col items-center space-y-4 border border-dotted border-[#717171] p-5 mt-2">
+        <div v-if="!imagePreview">
+          <span class="text-[#695CCD]">Capa do projeto</span>
+          <div class="flex flex-col items-center space-y-4 border border-dotted border-[#717171] p-5 mt-2">
+            <IconUpload />
 
-          <IconUpload />
 
-          <img v-if="imagePreview" :src="imagePreview" alt="Preview" class="max-w-xs max-h-48 object-contain mb-4">
-          <span class="text-[#717171] text-sm">Escolha uma imagem .jpg ou .png no seu dispositivo</span>
-          <input type="file" id="coverImage" accept="image/jpeg, image/png" class="hidden"
-            @change="handleImageUpload" />
-          <label for="coverImage"
-            class="bg-white border border-[#695CCD] rounded-full px-8 py-2 text-[#695CCD] cursor-pointer hover:bg-[#695CCD] hover:text-white transition-colors">
-            Selecionar
-          </label>
+
+            <span class="text-[#717171] text-sm">Escolha uma imagem .jpg ou .png no seu dispositivo</span>
+            <input type="file" id="coverImage" accept="image/jpeg, image/png" class="hidden"
+              @change="handleImageUpload" />
+            <label for="coverImage"
+              class="bg-white border border-[#695CCD] rounded-full px-8 py-2 text-[#695CCD] cursor-pointer hover:bg-[#695CCD] hover:text-white transition-colors">
+              Selecionar
+            </label>
+          </div>
+        </div>
+        <div v-if="imagePreview" class="relative rounded overflow-hidden max-w-[702px] max-h-[395px]">
+          <img :src="imagePreview" alt="Preview" class=" mb-4">
+          <button type="button" @click="removeImage"
+            class="absolute top-0 right-0 p-2 bg-white rounded-full shadow-md m-3 hover:bg-gray-100 transition-colors">
+            <IconTrash class="text-[#695CCD]" />
+          </button>
         </div>
       </div>
 
@@ -74,6 +83,7 @@ import { useProjectStore } from '../stores/projectStore';
 import { imageApi } from '../services/imageApi';
 import IconUpload from '@/components/icons/IconUpload.vue';
 import IconArrowLeft from '@/components/icons/IconArrowLeft.vue';
+import IconTrash from '@/components/icons/IconTrash.vue';
 
 
 const route = useRoute();
@@ -166,6 +176,24 @@ async function handleImageUpload(event: Event) {
     } catch (error) {
       console.error('Erro ao fazer upload:', error);
       alert('Erro ao fazer upload da imagem. Tente novamente.');
+    }
+  }
+}
+
+async function removeImage() {
+  if (form.value.coverImage) {
+    try {
+      await imageApi.delete(form.value.coverImage)
+      imagePreview.value = ''
+      form.value.coverImage = ''
+
+      const fileInput = document.getElementById('coverImage') as HTMLInputElement
+      if (fileInput) {
+        fileInput.value = ''
+      }
+    } catch (error) {
+      console.error('Erro ao deletar imagem:', error)
+      alert('Erro ao remover a imagem. Tente novamente.')
     }
   }
 }
