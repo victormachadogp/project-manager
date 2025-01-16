@@ -10,6 +10,9 @@
     </div>
 
     <div v-else>
+      <p class="text-[#717171]">{{ totalProjects }} projetos cadastrados</p>
+
+
       <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full">
         Novo Projeto
       </RouterLink>
@@ -35,6 +38,12 @@ import type { Project } from '../types/Project';
 const store = useProjectStore();
 const showDeleteModal = ref(false);
 const projectToDelete = ref<Project | null>(null);
+
+const {
+  totalProjects,
+  loading
+} = store;
+
 
 
 async function handleDeleteProject() {
