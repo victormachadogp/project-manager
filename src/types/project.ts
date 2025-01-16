@@ -8,3 +8,5 @@ export interface Project {
   isFavorite: boolean
   createdAt: string
 }
+
+export type ProjectSortOption = 'alphabetical' | 'startDate' | 'endDate'

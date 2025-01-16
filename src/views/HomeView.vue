@@ -16,6 +16,12 @@
           <span class="text-sm">({{ filteredProjects.length }})</span>
         </div>
 
+        <select v-model="sortBy" class="border border-[#DCDCDC] rounded-lg px-4 py-2 text-sm text-[#717171]">
+          <option value="alphabetical">Ordem alfabética</option>
+          <option value="startDate">Mais recentes</option>
+          <option value="endDate">Próximos ao fim</option>
+        </select>
+
         <div class="flex items-center gap-4">
           <label class="inline-flex items-center cursor-pointer">
             <input type="checkbox" v-model="showOnlyFavorites" class="sr-only peer">
@@ -47,12 +53,14 @@ import { ref, onMounted, computed } from 'vue';
 import ProjectCard from '@/components/ProjectCard.vue';
 import { useProjectStore } from '../stores/projectStore';
 import ModalBase from '../components/ModalBase.vue';
-import type { Project } from '../types/Project';
+import type { Project, ProjectSortOption } from '../types/Project';
 
 const store = useProjectStore();
 const showDeleteModal = ref(false);
 const projectToDelete = ref<Project | null>(null);
 const showOnlyFavorites = ref(false);
+const sortBy = ref<ProjectSortOption>('alphabetical');
+
 
 const {
   totalProjects,
@@ -70,10 +78,27 @@ async function handleDeleteProject() {
 const projects = computed(() => store.projects);
 
 const filteredProjects = computed(() => {
-  if (showOnlyFavorites.value) {
-    return projects.value.filter(project => project.isFavorite);
+  let result = [...projects.value]; // Cria uma cópia para não modificar o array original
+
+  // Aplica a ordenação
+  switch (sortBy.value) {
+    case 'alphabetical':
+      result.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case 'startDate':
+      result.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+      break;
+    case 'endDate':
+      result.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
+      break;
   }
-  return projects.value;
+
+  // Aplica o filtro de favoritos
+  if (showOnlyFavorites.value) {
+    result = result.filter(project => project.isFavorite);
+  }
+
+  return result;
 });
 
 onMounted(() => {
