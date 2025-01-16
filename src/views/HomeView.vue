@@ -5,7 +5,8 @@
       <div v-if="projects.length === 0" class="flex items-center justify-center flex-col space-y-5 rounded h-screen">
         <h3 class="text-[#1F1283] font-semibold text-2xl">Nenhum Projeto</h3>
         <span class="text-[#717171]">Clique no botão abaixo para criar o primeiro e gerenciá-lo.</span>
-        <RouterLink to="/project" class="bg-[#695CCD] text-white px-5 py-3 rounded-full">
+        <RouterLink to="/project" class="bg-[#695CCD] text-white px-5 py-3 rounded-full flex items-center gap-3">
+          <IconAdd />
           Novo Projeto
         </RouterLink>
       </div>
@@ -43,6 +44,7 @@ import ModalBase from '@/components/ModalBase.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import ProjectFilters from '@/components/filters/ProjectFilters.vue'
 import { useProjects } from '@/composables/useProjects'
+import IconAdd from '@/components/icons/IconAdd.vue'
 
 const {
   projects,
