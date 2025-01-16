@@ -14,7 +14,7 @@
         </RouterLink>
       </div>
 
-      <div v-else>
+      <div class="mx-0 sm:mx-10" v-else>
         <div class="flex justify-between items-center flex-col sm:flex-row">
           <div class="flex items-center pb-4 sm:pb-0 gap-2">
             <h3 class="text-2xl">Projetos</h3>
@@ -30,7 +30,7 @@
         </div>
 
 
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5 mt-5">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4 3xl:grid-cols-5 mt-5">
           <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project"
             @delete="openDeleteModal(project)" />
         </div>

@@ -1,6 +1,6 @@
 <template>
-    <div class="relative">
-        <div class="px-3 border border-[#695CCD] bg-white flex items-center gap-3 py-1 rounded">
+    <div class="relative ">
+        <div class="px-3 border border-[#695CCD] bg-white flex items-center gap-3 py-1 rounded h-[57px]">
             <IconSearch class="text-[#695CCD]" />
             <input v-model="searchInput" class="w-full py-2 !outline-none" placeholder="Digite o nome do projeto..."
                 type="text" @focus="showRecentSearches = true" @blur="handleBlur">

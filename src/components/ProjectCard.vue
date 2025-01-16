@@ -1,10 +1,11 @@
 <template>
     <div class="max-w-[346px] bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
-        <div class="relative  h-[231px] ">
-            <div class="overflow-hidden h-full w-[344px] bg-[#695ccd] rounded-t-lg bg-cover bg-center bg-no-repeat"
-                :style="{
-                    backgroundImage: `url(${project.coverImage || defaultBackground})`
-                }" @error="handleImageError">
+        <div class="relative   h-[231px] overflow-hidden">
+            <div class="w-[344px]">
+            </div>
+            <div class="h-full w-full   bg-[#695ccd] rounded-t-lg bg-cover bg-center bg-no-repeat" :style="{
+                backgroundImage: `url(${project.coverImage || defaultBackground})`
+            }" @error="handleImageError">
             </div>
             <div v-if="project.coverImage" class="absolute inset-0 rounded-t-lg"
                 style="background: linear-gradient(to top, rgb(0 0 0 / 40%), rgba(0, 0, 0, 0));">
