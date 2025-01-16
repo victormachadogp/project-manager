@@ -65,6 +65,8 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useProjectStore } from '../stores/projectStore';
+import { imageApi } from '../services/imageApi';
+
 
 const route = useRoute();
 const router = useRouter();
@@ -129,20 +131,34 @@ function validateForm(): boolean {
   return Object.keys(errors.value).length === 0;
 }
 
-function handleImageUpload(event: Event) {
+async function handleImageUpload(event: Event) {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files[0]) {
     const file = input.files[0];
-    const reader = new FileReader();
 
-    reader.onload = (e) => {
-      if (e.target?.result) {
-        imagePreview.value = e.target.result as string;
-        form.value.coverImage = e.target.result as string;
-      }
-    };
+    // Validações
+    if (!file.type.match(/image\/(jpeg|png)/)) {
+      alert('Por favor, selecione apenas imagens JPG ou PNG');
+      return;
+    }
 
-    reader.readAsDataURL(file);
+    if (file.size > 5 * 1024 * 1024) {
+      alert('A imagem deve ter no máximo 5MB');
+      return;
+    }
+
+    try {
+      // Upload da imagem e obtenção do caminho
+      const imagePath = await imageApi.upload(file);
+
+      // Atualizar preview e form com o caminho retornado
+      imagePreview.value = imagePath;
+      form.value.coverImage = imagePath;
+
+    } catch (error) {
+      console.error('Erro ao fazer upload:', error);
+      alert('Erro ao fazer upload da imagem. Tente novamente.');
+    }
   }
 }
 
