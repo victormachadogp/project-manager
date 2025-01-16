@@ -5,7 +5,7 @@
             <div class="relative bg-white rounded-lg shadow flex flex-col items-center">
                 <div
                     class="bg-[#695CCD] w-16 h-16 rounded-full flex justify-center items-center shadow-lg absolute top-[-30px]">
-                    <IconTrash />
+                    <IconTrash class="text-white" />
                 </div>
                 <div class="flex items-center justify-center p-4 md:p-5 border-b rounded-t w-full mt-7">
                     <h3 class="text-xl font-semibold text-[#1F1283]">
