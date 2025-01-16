@@ -6,8 +6,29 @@ import { projectApi } from '@/services/projectApi'
 export const useProjectStore = defineStore('project', () => {
   const projects = ref<Project[]>([])
   const loading = ref(false)
+  const searchQuery = ref('')
+  const recentSearches = ref<string[]>([])
 
   const totalProjects = computed(() => projects.value.length)
+
+  function addToRecentSearches(query: string) {
+    if (query.length >= 3) {
+      recentSearches.value = [
+        query,
+        ...recentSearches.value.filter((search) => search !== query),
+      ].slice(0, 5)
+
+      // Salva no localStorage (Talvez Remover)
+      localStorage.setItem('recentSearches', JSON.stringify(recentSearches.value))
+    }
+  }
+
+  function loadRecentSearches() {
+    const saved = localStorage.getItem('recentSearches')
+    if (saved) {
+      recentSearches.value = JSON.parse(saved)
+    }
+  }
 
   // Actions
   async function fetchProjects() {
@@ -57,6 +78,10 @@ export const useProjectStore = defineStore('project', () => {
     projects,
     loading,
     totalProjects,
+    searchQuery,
+    recentSearches,
+    addToRecentSearches,
+    loadRecentSearches,
     fetchProjects,
     createProject,
     fetchProjectById,

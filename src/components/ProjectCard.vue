@@ -32,10 +32,11 @@
         </div>
         <div class="p-5">
             <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#1F1283] ">{{ project.name }}</h5>
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#1F1283]" v-html="highlightText(project.name)">
+                </h5>
             </a>
-            <span class="mb-3text-[#717171] font-bold ">Cliente: <span class="font-light">{{ project.client
-                    }}</span></span>
+            <span class="mb-3 text-[#717171] font-bold">Cliente: <span class="font-light"
+                    v-html="highlightText(project.client)"></span></span>
         </div>
         <div class="border-t border-[##ECECEC] mx-3">
             <div class="p-2">
@@ -46,7 +47,6 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
@@ -60,6 +60,8 @@ const store = useProjectStore();
 const emit = defineEmits<{
     (e: 'delete'): void;
 }>();
+
+const showOptions = ref(false);
 
 async function toggleFavorite() {
     const updatedProject = {
@@ -79,11 +81,24 @@ function formatDate(date: string): string {
     return localDate.toLocaleDateString('pt-BR', options);
 }
 
-const showOptions = ref(false);
-
 function handleDelete() {
     showOptions.value = false;
     emit('delete');
 }
 
+function highlightText(text: string): string {
+    if (!store.searchQuery) return text;
+
+    const searchTerm = store.searchQuery.toLowerCase();
+    const index = text.toLowerCase().indexOf(searchTerm);
+
+    if (index >= 0) {
+        const before = text.slice(0, index);
+        const match = text.slice(index, index + searchTerm.length);
+        const after = text.slice(index + searchTerm.length);
+        return `${before}<span class="bg-yellow-200">${match}</span>${after}`;
+    }
+
+    return text;
+}
 </script>

@@ -84,9 +84,16 @@ async function handleDeleteProject() {
 const projects = computed(() => store.projects);
 
 const filteredProjects = computed(() => {
-  let result = [...projects.value]; // Cria uma cópia para não modificar o array original
+  let result = [...projects.value];
 
-  // Aplica a ordenação
+  if (store.searchQuery) {
+    const searchLower = store.searchQuery.toLowerCase();
+    result = result.filter(project =>
+      project.name.toLowerCase().includes(searchLower) ||
+      project.client.toLowerCase().includes(searchLower)
+    );
+  }
+
   switch (sortBy.value) {
     case 'alphabetical':
       result.sort((a, b) => a.name.localeCompare(b.name));
@@ -99,7 +106,6 @@ const filteredProjects = computed(() => {
       break;
   }
 
-  // Aplica o filtro de favoritos
   if (showOnlyFavorites.value) {
     result = result.filter(project => project.isFavorite);
   }
