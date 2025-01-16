@@ -1,22 +1,7 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/projectStore'
-import type { Project } from '../types/Project'
-
-interface FormData {
-  name: string
-  client: string
-  startDate: string
-  endDate: string
-  coverImage: string
-}
-
-interface FormErrors {
-  name?: string
-  client?: string
-  startDate?: string
-  endDate?: string
-}
+import type { Project, ProjectFormData, ProjectFormErrors } from '../types/Project'
 
 export function useProjectForm() {
   const route = useRoute()
@@ -25,14 +10,14 @@ export function useProjectForm() {
 
   const isEditing = ref(false)
   const loading = ref(false)
-  const form = ref<FormData>({
+  const form = ref<ProjectFormData>({
     name: '',
     client: '',
     startDate: '',
     endDate: '',
     coverImage: '',
   })
-  const errors = ref<FormErrors>({})
+  const errors = ref<ProjectFormErrors>({})
 
   function validateForm(): boolean {
     errors.value = {}
