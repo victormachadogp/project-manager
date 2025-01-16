@@ -1,26 +1,21 @@
 <template>
     <div>
-        <div v-if="showSearchBar" class="bg-[#1C1930] flex justify-between items-center w-full">
+        <div v-if="!showSearchBar" class="bg-[#1C1930] flex justify-between items-center w-full">
             <div class="opacity-0"></div>
             <img class="w-36" src="../assets/logo.png" alt="">
-            <button @click="showSearchBar = false">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 1L1 19M1 1L19 19" stroke="white" stroke-width="2" stroke-linecap="round" />
-                </svg>
+            <button @click="toggleSearchBar">
+                <IconSearch class="text-white" />
             </button>
         </div>
-        <div class="relative">
-            <div class="border border-[#695CCD] bg-white flex items-center gap-3 py-1 rounded">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M8.99176 17C13.4055 17 16.9835 13.4183 16.9835 9C16.9835 4.58172 13.4055 1 8.99176 1C4.57803 1 1 4.58172 1 9C1 13.4183 4.57803 17 8.99176 17Z"
-                        fill="white" stroke="#695CCD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M18.9814 18.9999L14.6359 14.6499" stroke="#695CCD" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
+        <div v-else class="relative">
+            <div class="px-3 border border-[#695CCD] bg-white flex items-center gap-3 py-1 rounded">
+                <IconSearch class="text-[#695CCD]" />
 
-                <input v-model="searchInput" class="w-full py-2" placeholder="Digite o nome do projeto..." type="text"
-                    @focus="showRecentSearches = true" @blur="handleBlur">
+                <input v-model="searchInput" class="w-full py-2 !outline-none" placeholder="Digite o nome do projeto..."
+                    type="text" @focus="showRecentSearches = true" @blur="handleBlur">
+                <button @click="toggleSearchBar">
+                    <IconX class="size-6" />
+                </button>
             </div>
 
 
@@ -36,8 +31,9 @@
                         </svg>
                         <span class="text-[#717171]">{{ search }}</span>
                     </div>
-                    <button @mousedown.stop="removeRecentSearch(search)"
-                        class="text-gray-400 hover:text-gray-600">×</button>
+                    <button @mousedown.stop="removeRecentSearch(search)" class="text-gray-400 hover:text-gray-600">
+                        <IconX class="size-4" />
+                    </button>
                 </div>
             </div>
         </div>
@@ -48,6 +44,8 @@
 import { ref, watch, onMounted } from 'vue';
 import { useProjectStore } from '../stores/projectStore';
 import debounce from 'lodash/debounce';
+import IconSearch from './icons/IconSearch.vue';
+import IconX from './icons/IconX.vue';
 
 const store = useProjectStore();
 const showSearchBar = ref(false);
@@ -66,6 +64,14 @@ const debouncedSearch = debounce((query: string) => {
         store.searchQuery = '';
     }
 }, 1000);
+
+const toggleSearchBar = () => {
+    showSearchBar.value = !showSearchBar.value
+    if (showSearchBar.value === false) {
+        searchInput.value = searchInput.value
+    }
+
+}
 
 watch(searchInput, (newValue) => {
     debouncedSearch(newValue);
