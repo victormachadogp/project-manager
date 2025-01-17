@@ -56,7 +56,7 @@ describe('ProjectStore', () => {
     const store = useProjectStore()
     const mockProjects = [
       {
-        id: 1,
+        id: '1',
         name: 'Projeto 1',
         client: 'Cliente 1',
         startDate: '2024-01-01',
@@ -87,7 +87,7 @@ describe('ProjectStore', () => {
     }
 
     const mockResponse = {
-      id: 1,
+      id: '1',
       ...newProject,
       isFavorite: false,
       createdAt: expect.any(String),
@@ -103,7 +103,7 @@ describe('ProjectStore', () => {
   it('deve atualizar projeto existente', async () => {
     const store = useProjectStore()
     const project = {
-      id: 1,
+      id: '1',
       name: 'Projeto Atualizado',
       client: 'Cliente',
       startDate: '2024-01-01',
@@ -116,9 +116,12 @@ describe('ProjectStore', () => {
     // Adiciona um projeto inicial
     store.projects = [{ ...project, name: 'Nome Original' }]
 
+    // Mock da resposta da API
+    vi.mocked(projectApi.update).mockResolvedValue(project)
+
     await store.updateProject(project)
 
-    const updatedProject = store.projects.find((p) => p.id === 1)
+    const updatedProject = store.projects.find((p) => p.id === '1')
     expect(updatedProject?.name).toBe('Projeto Atualizado')
   })
 
@@ -148,7 +151,7 @@ describe('ProjectStore', () => {
     const store = useProjectStore()
     store.projects = [
       {
-        id: 1,
+        id: '1',
         name: 'P1',
         client: 'C1',
         startDate: '2024-01-01',

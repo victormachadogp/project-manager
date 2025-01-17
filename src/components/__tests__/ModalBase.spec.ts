@@ -3,46 +3,63 @@ import { mount } from '@vue/test-utils'
 import ModalBase from '@/components/ModalBase.vue'
 
 describe('ModalBase', () => {
-  const mockProject = {
-    id: 1,
-    name: 'Test Project',
-    client: 'Test Client',
-    startDate: '2024-01-01',
-    endDate: '2024-12-31',
-    coverImage: '',
-    isFavorite: false,
-    createdAt: '2024-01-01',
-  }
-
-  it('deve renderizar o nome do projeto no modal', () => {
+  it('deve renderizar o título do modal corretamente', () => {
     const wrapper = mount(ModalBase, {
       props: {
-        project: mockProject,
+        title: 'Título do Modal',
       },
     })
 
-    expect(wrapper.text()).toContain('Test Project')
+    expect(wrapper.find('h3').text()).toBe('Título do Modal')
   })
 
-  it('deve emitir evento de fechar quando o botão cancelar for clicado', async () => {
+  it('deve renderizar o conteúdo do slot corretamente', () => {
     const wrapper = mount(ModalBase, {
       props: {
-        project: mockProject,
+        title: 'Título',
+      },
+      slots: {
+        default: '<p>Conteúdo do Modal</p>',
+      },
+    })
+
+    expect(wrapper.find('.space-y-4').text()).toBe('Conteúdo do Modal')
+  })
+
+  it('deve emitir evento de cancel quando o botão cancelar for clicado', async () => {
+    const wrapper = mount(ModalBase, {
+      props: {
+        title: 'Título',
+        showCancelButton: true,
       },
     })
 
     await wrapper.find('button:first-child').trigger('click')
-    expect(wrapper.emitted('close')).toBeTruthy()
+    expect(wrapper.emitted('cancel')).toBeTruthy()
   })
 
-  it('deve emitir evento de confirmação quando o botão confirmar for clicado', async () => {
+  it('deve emitir evento de confirm quando o botão confirmar for clicado', async () => {
     const wrapper = mount(ModalBase, {
       props: {
-        project: mockProject,
+        title: 'Título',
       },
     })
 
     await wrapper.find('button:last-child').trigger('click')
     expect(wrapper.emitted('confirm')).toBeTruthy()
+  })
+
+  it('deve renderizar os textos personalizados dos botões', () => {
+    const wrapper = mount(ModalBase, {
+      props: {
+        title: 'Título',
+        cancelText: 'Voltar',
+        confirmText: 'Salvar',
+      },
+    })
+
+    const buttons = wrapper.findAll('button')
+    expect(buttons[0].text()).toBe('Voltar')
+    expect(buttons[1].text()).toBe('Salvar')
   })
 })

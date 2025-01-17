@@ -21,6 +21,17 @@ vi.mock('../components/ProjectImageUpload.vue', () => ({
   },
 }))
 
+// Mock do useRoute
+vi.mock('vue-router', async () => {
+  const actual = await vi.importActual('vue-router')
+  return {
+    ...actual,
+    useRoute: () => ({
+      params: { id: undefined },
+    }),
+  }
+})
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -47,7 +58,6 @@ describe('ProjectFormView', () => {
     expect(wrapper.find('#startDate').exists()).toBe(true)
     expect(wrapper.find('#endDate').exists()).toBe(true)
   })
-
   it('exibe mensagens de erro quando o formulário é submetido com campos vazios', async () => {
     const wrapper = mount(ProjectFormView, {
       global: {

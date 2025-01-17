@@ -1,6 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useProjects } from '@/composables/useProjects'
 import { createPinia, setActivePinia } from 'pinia'
+import { useProjectStore } from '@/stores/projectStore'
 
 describe('useProjects', () => {
   beforeEach(() => {
@@ -19,11 +20,15 @@ describe('useProjects', () => {
     expect(filteredProjects.value).toEqual([])
   })
 
-  it('lida corretamente da exclusão de projetos', async () => {
+  it('lida corretamente com a exclusão de projetos', async () => {
+    const store = useProjectStore()
+    // Mock do método deleteProject do store
+    vi.spyOn(store, 'deleteProject').mockResolvedValue()
+
     const { handleDeleteProject, projectToDelete, showDeleteModal } = useProjects()
 
     projectToDelete.value = {
-      id: 1,
+      id: '1', // Agora como string
       name: 'Test Project',
       client: 'Test Client',
       startDate: '2024-01-01',
@@ -36,6 +41,7 @@ describe('useProjects', () => {
     showDeleteModal.value = true
     await handleDeleteProject()
 
+    expect(store.deleteProject).toHaveBeenCalledWith('1')
     expect(showDeleteModal.value).toBe(false)
     expect(projectToDelete.value).toBeNull()
   })

@@ -1,10 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
+import { RouterLink } from 'vue-router'
 import ProjectCard from '../ProjectCard.vue'
 
 const mockProject = {
-  id: 1,
+  id: '1',
   name: 'Test Project',
   client: 'Test Client',
   coverImage: 'test-image.jpg',
@@ -24,6 +25,16 @@ describe('ProjectCard', () => {
       props: {
         project: mockProject,
       },
+      global: {
+        components: {
+          RouterLink,
+        },
+        stubs: {
+          RouterLink: {
+            template: '<a><slot></slot></a>',
+          },
+        },
+      },
     })
 
     expect(wrapper.text()).toContain('Test Project')
@@ -37,12 +48,21 @@ describe('ProjectCard', () => {
       props: {
         project: mockProject,
       },
+      global: {
+        components: {
+          RouterLink,
+        },
+        stubs: {
+          RouterLink: {
+            template: '<a><slot></slot></a>',
+          },
+        },
+      },
     })
 
     const favoriteButton = wrapper.find('button')
     await favoriteButton.trigger('click')
 
-    // Verifica se o método foi chamado
     expect(wrapper.emitted()).toBeTruthy()
   })
 
@@ -50,6 +70,16 @@ describe('ProjectCard', () => {
     const wrapper = mount(ProjectCard, {
       props: {
         project: mockProject,
+      },
+      global: {
+        components: {
+          RouterLink,
+        },
+        stubs: {
+          RouterLink: {
+            template: '<a><slot></slot></a>',
+          },
+        },
       },
     })
 
