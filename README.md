@@ -207,7 +207,7 @@ Copie e cole as seguintes variáveis:
 VITE_API_PORT=3000
 VITE_IMAGE_SERVER_PORT=3001
 VITE_API_URL=http://localhost:3000
-VITE_IMAGE_API_URL=http://localhost:3001
+VITE_IMAGE_API_URL=http://localhost:3001/images
 ```
 
 ## Iniciando os Serviços
