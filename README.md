@@ -135,28 +135,28 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
 
 ## Justificativas
 
-1. **Gradiente no Overlay do ProjectCard:**
+- **Gradiente no Overlay do ProjectCard:**
 
-   - Melhorou a usabilidade e acessibilidade visual.
-   - Imagens de fundo claras poderiam dificultar a visualização dos botões.
+  - Melhorou a usabilidade e acessibilidade visual.
+  - Imagens de fundo claras poderiam dificultar a visualização dos botões.
 
-2. **Uso de json-server e um servidor Node.js com Express no projeto:**
+- **Uso de json-server e um servidor Node.js com Express no projeto:**
 
-   O projeto utiliza dois servidores diferentes para propósitos específicos:
+  O projeto utiliza dois servidores diferentes para propósitos específicos:
 
-   1. JSON Server (API Mock)
-   2. Express Server (Servidor de Imagens)
+  - JSON Server (API Mock)
+  - Express Server (Servidor de Imagens)
 
-   O servidor Node.js com Express foi implementado para lidar com upload e manipulação de imagens, evitando o uso de base64 no banco de dados por motivos como:
+  O servidor Node.js com Express foi implementado para lidar com upload e manipulação de imagens, evitando o uso de base64 no banco de dados por motivos como:
 
-   - **Tamanho do banco**: Base64 aumenta significativamente o tamanho dos dados.
-   - **Performance**: Consultas e transferências mais lentas.
-   - **Cache**: Difícil para navegadores armazenarem em cache.
-   - **Requisições pesadas**: Dados em base64 aumentam o consumo de requisições.
+  - **Tamanho do banco**: Base64 aumenta significativamente o tamanho dos dados.
+  - **Performance**: Consultas e transferências mais lentas.
+  - **Cache**: Difícil para navegadores armazenarem em cache.
+  - **Requisições pesadas**: Dados em base64 aumentam o consumo de requisições.
 
-   Essa separação reflete uma abordagem mais próxima de um cenário real, onde imagens seriam gerenciadas por serviços de armazenamento especializados, como Amazon S3, Supabase Storage ou Cloudinary. Em produção, esses serviços oferecem escalabilidade, desempenho e facilidade de integração, enquanto no projeto atual o servidor Node.js simula essa funcionalidade de forma local para fins de desenvolvimento e testes.
+  Essa separação reflete uma abordagem mais próxima de um cenário real, onde imagens seriam gerenciadas por serviços de armazenamento especializados, como Amazon S3, Supabase Storage ou Cloudinary. Em produção, esses serviços oferecem escalabilidade, desempenho e facilidade de integração, enquanto no projeto atual o servidor Node.js simula essa funcionalidade de forma local para fins de desenvolvimento e testes.
 
-   O approach também reduziu dependências externas e custos adicionais para o ambiente atual.
+  O approach também reduziu dependências externas e custos adicionais para o ambiente atual.
 
 ## Fluxo da Aplicação
 
