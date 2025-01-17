@@ -11,10 +11,12 @@
 >
 > 2. Iniciar o servidor da API.
 >
+> - `cd server`
 > - `npm run json-server`
 >
 > 3. Iniciar o servidor de imagens.
 >
+> - `cd server`
 > - `node imageServer.js`
 
 ## Índice
@@ -285,3 +287,8 @@ Os testes foram escritos utilizando o **Vitest**, garantindo a confiança do có
 - Integração com serviços de armazenamento dedicados (e.g., Amazon S3).
 - Sistema de autenticação e controle de acesso.
 - Melhoria na acessibilidade (WCAG).
+- Modo escuro/claro
+- Tooltips informativos
+- Paginação ou infinite scroll
+- Cache de dados frequentes
+- Estado offline
