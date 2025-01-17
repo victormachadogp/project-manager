@@ -62,10 +62,15 @@ export function useProjectForm() {
     loading.value = true
     try {
       if (isEditing.value) {
+        const id = Array.isArray(route.params.id)
+          ? parseInt(route.params.id[0], 10)
+          : parseInt(route.params.id, 10)
+
         await store.updateProject({
-          id: route.params.id,
+          id,
           ...form.value,
           isFavorite: false,
+          createdAt: new Date().toISOString(), // Adicione um valor adequado para createdAt
         } as Project)
       } else {
         await store.createProject(form.value)
@@ -79,7 +84,8 @@ export function useProjectForm() {
   }
 
   async function loadProject() {
-    const projectId = route.params.id
+    const projectId = typeof route.params.id === 'string' ? route.params.id : route.params.id[0]
+
     if (projectId) {
       const project = await store.fetchProjectById(projectId)
       if (project) {
