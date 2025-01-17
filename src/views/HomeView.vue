@@ -23,7 +23,9 @@
 
           <div class="flex gap-4 sm:flex-row flex-col">
             <ProjectFilters v-model:showFavorites="showOnlyFavorites" v-model:sortOption="sortBy" />
-            <RouterLink to="/project" class="bg-[#695CCD] text-white p-5 py-3 rounded-full self-center">
+            <RouterLink to="/project"
+              class="bg-[#695CCD] text-white p-5 py-3 rounded-full self-center flex items-center gap-3 whitespace-nowrap	">
+              <IconAdd />
               Novo Projeto
             </RouterLink>
           </div>
