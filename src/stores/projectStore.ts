@@ -18,7 +18,6 @@ export const useProjectStore = defineStore('project', () => {
         ...recentSearches.value.filter((search) => search !== query),
       ].slice(0, 5)
 
-      // Salva no localStorage (Talvez Remover)
       localStorage.setItem('recentSearches', JSON.stringify(recentSearches.value))
     }
   }
