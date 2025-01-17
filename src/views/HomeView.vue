@@ -2,8 +2,8 @@
   <div>
     <TheHeader />
     <main :class="[
-      'my-5 flex justify-center h-screen max-w-[1860px] mx-auto',
-      projects.length === 0 ? 'bg-white' : ''
+      'my-5 flex justify-center h-screen max-w-[1860px] mx-auto rounded',
+      projects.length === 0 ? 'bg-white mx-6' : ''
     ]">
       <div v-if="projects.length === 0" class="flex items-center justify-center flex-col space-y-5 rounded h-screen">
         <h3 class="text-[#1F1283] font-semibold text-2xl">Nenhum Projeto</h3>
