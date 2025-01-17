@@ -1,15 +1,21 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Project } from '../types/project'
+import type { ApiError } from '../types/error'
 import { projectApi } from '@/services/projectApi'
 
 export const useProjectStore = defineStore('project', () => {
   const projects = ref<Project[]>([])
   const loading = ref(false)
+  const error = ref<string | null>(null)
   const searchQuery = ref('')
   const recentSearches = ref<string[]>([])
 
   const totalProjects = computed(() => projects.value.length)
+
+  function clearError() {
+    error.value = null
+  }
 
   function addToRecentSearches(query: string) {
     if (query.length >= 3) {
@@ -32,45 +38,75 @@ export const useProjectStore = defineStore('project', () => {
   // Actions
   async function fetchProjects() {
     loading.value = true
+    error.value = null
     try {
       projects.value = await projectApi.getAll()
+    } catch (e) {
+      const apiError = e as ApiError
+      error.value = apiError.message
+      projects.value = []
     } finally {
       loading.value = false
     }
   }
 
   async function createProject(project: Omit<Project, 'id' | 'createdAt' | 'isFavorite'>) {
-    const newProject = await projectApi.create({
-      ...project,
-      isFavorite: false,
-      createdAt: new Date().toISOString(),
-    })
-    projects.value.push(newProject)
+    error.value = null
+    try {
+      const newProject = await projectApi.create({
+        ...project,
+        isFavorite: false,
+        createdAt: new Date().toISOString(),
+      })
+      projects.value.push(newProject)
+      return newProject
+    } catch (e) {
+      const apiError = e as ApiError
+      error.value = apiError.message
+      throw e
+    }
   }
 
   async function fetchProjectById(id: string | number) {
     loading.value = true
+    error.value = null
     try {
-      const project = await projectApi.getById(id)
-      if (project) {
-        return project
-      }
+      return await projectApi.getById(id)
+    } catch (e) {
+      const apiError = e as ApiError
+      error.value = apiError.message
+      throw e
     } finally {
       loading.value = false
     }
   }
 
   async function updateProject(project: Project) {
-    await projectApi.update(project)
-    const index = projects.value.findIndex((p) => p.id === project.id)
-    if (index !== -1) {
-      projects.value[index] = project
+    error.value = null
+    try {
+      const updatedProject = await projectApi.update(project)
+      const index = projects.value.findIndex((p) => p.id === project.id)
+      if (index !== -1) {
+        projects.value[index] = updatedProject
+      }
+      return updatedProject
+    } catch (e) {
+      const apiError = e as ApiError
+      error.value = apiError.message
+      throw e
     }
   }
 
   async function deleteProject(id: number) {
-    await projectApi.delete(id)
-    projects.value = projects.value.filter((p) => p.id !== id)
+    error.value = null
+    try {
+      await projectApi.delete(id)
+      projects.value = projects.value.filter((p) => p.id !== id)
+    } catch (e) {
+      const apiError = e as ApiError
+      error.value = apiError.message
+      throw e
+    }
   }
 
   return {
