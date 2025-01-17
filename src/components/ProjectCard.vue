@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-[346px] bg-white border border-[#DCDCDC] rounded-lg shadow pb-4">
-        <div class="relative   h-[231px] overflow-hidden">
+        <div class="relative h-[231px]">
             <div class="w-[344px]">
             </div>
             <div class="h-full w-full   bg-[#695ccd] rounded-t-lg bg-cover bg-center bg-no-repeat" :style="{
@@ -61,7 +61,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { Project } from '../types/Project';
+import type { Project } from '../types/project';
 import { useProjectStore } from '../stores/projectStore';
 import defaultBackground from '../assets/default-background.png';
 import IconStartDate from '@/components/icons/IconStartDate.vue'
