@@ -1,5 +1,22 @@
 # Documentação do Projeto de Gerenciamento de Projetos
 
+> [!IMPORTANT]
+>
+> Para garantir que o projeto funcione de forma adequada e sem problemas, é necessário seguir os seguintes passos:
+>
+> 1. Instalar as dependências do projeto.
+>
+> - `npm install`
+> - `npm run dev`
+>
+> 2. Iniciar o servidor da API.
+>
+> - `npm run json-server`
+>
+> 3. Iniciar o servidor de imagens.
+>
+> - `node imageServer.js`
+
 ## Índice
 
 1. [Visão Geral](#visão-geral)
