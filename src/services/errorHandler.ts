@@ -18,5 +18,5 @@ export function handleApiError(error: unknown): never {
     throw new ApiError(error.message)
   }
 
-  throw new ApiError('An unexpected error occurred')
+  throw new ApiError('Ocorreu um erro inesperado')
 }

@@ -8,7 +8,7 @@ export const projectApi = {
     try {
       const response = await fetch(API_URL)
       if (!response.ok) {
-        throw new ApiError('Failed to fetch projects', response.status)
+        throw new ApiError('Falha ao carregar os projetos', response.status)
       }
       return response.json()
     } catch (error) {
@@ -27,7 +27,7 @@ export const projectApi = {
       })
 
       if (!response.ok) {
-        throw new ApiError('Failed to create project', response.status)
+        throw new ApiError('Falha ao criar o projeto', response.status)
       }
 
       return response.json()
@@ -40,7 +40,7 @@ export const projectApi = {
     try {
       const response = await fetch(`${API_URL}/${id}`)
       if (!response.ok) {
-        throw new ApiError(`Failed to fetch project with id ${id}`, response.status)
+        throw new ApiError(`Falha ao buscar o projeto com id ${id}`, response.status)
       }
       return response.json()
     } catch (error) {
@@ -59,7 +59,7 @@ export const projectApi = {
       })
 
       if (!response.ok) {
-        throw new ApiError(`Failed to update project with id ${project.id}`, response.status)
+        throw new ApiError(`Falha ao atualizar o projeto com id ${project.id}`, response.status)
       }
 
       return response.json()
@@ -75,7 +75,7 @@ export const projectApi = {
       })
 
       if (!response.ok) {
-        throw new ApiError(`Failed to delete project with id ${id}`, response.status)
+        throw new ApiError(`Falha ao excluir o projeto com id ${id}`, response.status)
       }
     } catch (error) {
       throw handleApiError(error)

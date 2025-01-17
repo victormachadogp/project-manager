@@ -112,9 +112,11 @@ export const useProjectStore = defineStore('project', () => {
   return {
     projects,
     loading,
+    error,
     totalProjects,
     searchQuery,
     recentSearches,
+    clearError,
     addToRecentSearches,
     loadRecentSearches,
     fetchProjects,

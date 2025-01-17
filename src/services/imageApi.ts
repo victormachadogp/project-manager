@@ -14,7 +14,7 @@ export const imageApi = {
       })
 
       if (!response.ok) {
-        throw new ApiError('Failed to upload image', response.status)
+        throw new ApiError('Falha ao fazer upload da imagem', response.status)
       }
 
       const data = await response.json()
@@ -31,7 +31,7 @@ export const imageApi = {
       })
 
       if (!response.ok) {
-        throw new ApiError('Failed to delete image', response.status)
+        throw new ApiError('Falha ao excluir a imagem', response.status)
       }
     } catch (error) {
       throw handleApiError(error)
