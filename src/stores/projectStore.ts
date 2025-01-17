@@ -68,7 +68,7 @@ export const useProjectStore = defineStore('project', () => {
     }
   }
 
-  async function fetchProjectById(id: string | number) {
+  async function fetchProjectById(id: string) {
     loading.value = true
     error.value = null
     try {

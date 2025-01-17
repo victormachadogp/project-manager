@@ -45,7 +45,9 @@ export function useProjects() {
   // Actions
   const handleDeleteProject = async () => {
     if (projectToDelete.value) {
-      await store.deleteProject(projectToDelete.value.id)
+      if (projectToDelete.value?.id) {
+        await store.deleteProject(projectToDelete.value.id)
+      }
       showDeleteModal.value = false
       projectToDelete.value = null
     }
