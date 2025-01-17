@@ -1,9 +1,12 @@
+import dotenv from 'dotenv'
 import fs from 'fs'
 import express from 'express'
 import multer from 'multer'
 import path from 'path'
 import cors from 'cors'
 import { fileURLToPath } from 'url'
+
+dotenv.config()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
