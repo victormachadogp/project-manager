@@ -84,7 +84,8 @@ Os componentes foram organizados para manter a modularidade e reutilização:
 
 - `HomeView.vue`: Exibe a listagem de projetos.
 - `ProjectCard.vue`: Cartões individuais de projetos.
-- `ModalBase.vue`: Modal reutilizável para confirmação de exclusão.
+- `ModalBase.vue`: Componente modal reutilizável, com personalizações flexíveis para atender diversas necessidades.
+- `DeleteProjectModal.vue`: Modal específico para confirmar a exclusão de um projeto.
 
 **Formulários:**
 
@@ -108,6 +109,7 @@ Os componentes foram organizados para manter a modularidade e reutilização:
 Os composables encapsulam a lógica de estado e ações:
 
 - `useProjects`: Lógica de manipulação de projetos.
+- `useProjectCard`: Lógica dos cards de projetos.
 - `useSearch`: Lógica de busca e histórico recente.
 - `useProjectForm`: Gerenciamento do estado do formulário.
 - `useProjectImage`: Upload e remoção de imagens de capa.
@@ -132,6 +134,8 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
    - Gerencia as operações CRUD dos projetos.
 2. **`imageApi.ts`:**
    - Gerencia upload e remoção de imagens no servidor.
+3. **`errorHandler.ts`:**
+   - Gerencia e padroniza o tratamento de erros da aplicação.
 
 ## Justificativas
 
