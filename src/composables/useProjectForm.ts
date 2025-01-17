@@ -62,15 +62,13 @@ export function useProjectForm() {
     loading.value = true
     try {
       if (isEditing.value) {
-        const id = Array.isArray(route.params.id)
-          ? parseInt(route.params.id[0], 10)
-          : parseInt(route.params.id, 10)
+        const id = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
 
         await store.updateProject({
           id,
           ...form.value,
           isFavorite: false,
-          createdAt: new Date().toISOString(), // Adicione um valor adequado para createdAt
+          createdAt: new Date().toISOString(),
         } as Project)
       } else {
         await store.createProject(form.value)

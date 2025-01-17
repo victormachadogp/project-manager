@@ -1,5 +1,5 @@
 export interface Project {
-  id: number
+  id?: string
   name: string
   client: string
   startDate: string
@@ -12,6 +12,7 @@ export interface Project {
 export type ProjectSortOption = 'alphabetical' | 'startDate' | 'endDate'
 
 export interface ProjectFormData {
+  id?: string
   name: string
   client: string
   startDate: string
