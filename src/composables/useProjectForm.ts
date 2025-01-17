@@ -82,20 +82,31 @@ export function useProjectForm() {
   }
 
   async function loadProject() {
-    const projectId = typeof route.params.id === 'string' ? route.params.id : route.params.id[0]
+    const projectId = route.params.id
+    if (!projectId) return
 
-    if (projectId) {
-      const project = await store.fetchProjectById(projectId)
-      if (project) {
-        form.value = {
-          name: project.name,
-          client: project.client,
-          startDate: project.startDate,
-          endDate: project.endDate,
-          coverImage: project.coverImage || '',
-        }
+    const id = typeof projectId === 'string' ? projectId : projectId[0]
+    if (!id) return
+
+    try {
+      const projectData = await store.fetchProjectById(id)
+
+      if (projectData) {
+        form.value.name = projectData.name
+        form.value.client = projectData.client
+        form.value.startDate = projectData.startDate
+        form.value.endDate = projectData.endDate
+        form.value.coverImage = projectData.coverImage
+
+        errors.value.name = ''
+        errors.value.client = ''
+        errors.value.startDate = ''
+        errors.value.endDate = ''
       }
-      isEditing.value = true
+    } catch (error) {
+      console.error('Erro ao carregar o projeto:', error)
+    } finally {
+      loading.value = false
     }
   }
 
