@@ -1,4 +1,3 @@
-<!-- components/ProjectImageUpload.vue -->
 <template>
     <div>
         <div v-if="!imagePreview">
@@ -22,7 +21,7 @@
             </button>
         </div>
     </div>
-</template>>
+</template>
 
 <script setup lang="ts">
 import IconUpload from '@/components/icons/IconUpload.vue';
