@@ -77,7 +77,8 @@ const {
     formatDate,
     highlightText,
     handleImageError,
-    handleDelete: handleDeleteFromComposable
+    handleDelete: handleDeleteFromComposable,
+    project
 } = useProjectCard(props.project)
 
 const handleDelete = () => handleDeleteFromComposable(emit)

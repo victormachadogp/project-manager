@@ -1,18 +1,30 @@
+// useProjectCard.ts
 import { ref } from 'vue'
 import type { Project } from '../types/project'
 import { useProjectStore } from '../stores/projectStore'
 import defaultBackground from '../assets/default-background.png'
 
-export function useProjectCard(project: Project) {
+export function useProjectCard(initialProject: Project) {
   const store = useProjectStore()
   const showOptions = ref(false)
+  const project = ref({ ...initialProject })
 
   async function toggleFavorite() {
     const updatedProject = {
-      ...project,
-      isFavorite: !project.isFavorite,
+      ...project.value,
+      isFavorite: !project.value.isFavorite,
     }
-    await store.updateProject(updatedProject)
+
+    // Atualiza o estado local imediatamente
+    project.value = updatedProject
+
+    try {
+      // Atualiza no store
+      await store.updateProject(updatedProject)
+    } catch (error) {
+      project.value = { ...initialProject }
+      console.error('Erro ao atualizar favorito:', error)
+    }
   }
 
   function formatDate(date: string): string {
@@ -27,7 +39,7 @@ export function useProjectCard(project: Project) {
 
   function handleDelete(emit: (event: 'delete') => void) {
     showOptions.value = false
-    emit('delete') // Emite o evento para o HomeView
+    emit('delete')
   }
 
   function highlightText(text: string): string {
@@ -59,5 +71,6 @@ export function useProjectCard(project: Project) {
     handleDelete,
     highlightText,
     handleImageError,
+    project, // Exporta o ref do projeto
   }
 }
