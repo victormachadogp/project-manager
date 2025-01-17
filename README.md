@@ -198,6 +198,18 @@ cd server
 npm install
 ```
 
+## Configuração das Variáveis de Ambiente
+
+Crie um arquivo .env na raiz do projeto
+Copie e cole as seguintes variáveis:
+
+```env
+VITE_API_PORT=3000
+VITE_IMAGE_SERVER_PORT=3001
+VITE_API_URL=http://localhost:3000
+VITE_IMAGE_API_URL=http://localhost:3001
+```
+
 ## Iniciando os Serviços
 
 1. **Frontend (Em um terminal):**
@@ -230,6 +242,8 @@ node imageServer.js
 
 - Certifique-se de que todas as dependências foram instaladas corretamente em ambos os diretórios (raiz e server)
 - O diretório `uploads` será criado automaticamente na primeira execução do servidor de imagens
+- As variáveis de ambiente precisam começar com VITE\_ para serem acessíveis no frontend
+- É necessário reiniciar os servidores após alterar as variáveis de ambiente
 
 ## Tecnologias Utilizadas
 
