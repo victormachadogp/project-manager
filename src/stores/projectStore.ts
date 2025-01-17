@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import type { Project } from '../types/project'
 import type { ApiError } from '../types/error'
 import { projectApi } from '@/services/projectApi'
+import { imageApi } from '@/services/imageApi'
 
 export const useProjectStore = defineStore('project', () => {
   const projects = ref<Project[]>([])
@@ -97,9 +98,20 @@ export const useProjectStore = defineStore('project', () => {
     }
   }
 
-  async function deleteProject(id: number) {
+  async function deleteProject(id: string) {
     error.value = null
     try {
+      const project = projects.value.find((p) => p.id === id)
+
+      if (project?.coverImage) {
+        // Se existe uma imagem, deleta ela primeiro
+        try {
+          await imageApi.delete(project.coverImage)
+        } catch (imageError) {
+          console.error('Erro ao deletar imagem:', imageError)
+        }
+      }
+      // Depois deleta o projeto
       await projectApi.delete(id)
       projects.value = projects.value.filter((p) => p.id !== id)
     } catch (e) {

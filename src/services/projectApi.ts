@@ -36,7 +36,8 @@ export const projectApi = {
     }
   },
 
-  async getById(id: string | number): Promise<Project> {
+  async getById(id: string): Promise<Project> {
+    // Mudamos para aceitar apenas string
     try {
       const response = await fetch(`${API_URL}/${id}`)
       if (!response.ok) {
@@ -68,7 +69,7 @@ export const projectApi = {
     }
   },
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     try {
       const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
