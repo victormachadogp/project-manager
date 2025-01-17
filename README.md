@@ -228,13 +228,14 @@ npm run dev
 2. **Servidor de API (Em outro terminal):**
 
 ```bash
-# Na raiz do projeto
+# Na raiz do server
 npm run json-server
 ```
 
 3. **Servidor de Imagens (Em outro terminal):**
 
 ```bash
+# Na raiz do server
 node imageServer.js
 ```
 
