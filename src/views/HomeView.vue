@@ -38,8 +38,8 @@
         </div>
       </div>
 
-      <ModalBase v-if="showDeleteModal" :project="projectToDelete" @confirm="handleDeleteProject"
-        @close="closeDeleteModal" />
+      <DeleteProjectModal v-if="showDeleteModal" :project="projectToDelete" @confirm="handleDeleteProject"
+        @cancel="closeDeleteModal" />
     </main>
   </div>
 </template>
@@ -47,7 +47,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import ProjectCard from '@/components/ProjectCard.vue'
-import ModalBase from '@/components/ModalBase.vue'
+import DeleteProjectModal from '@/components/DeleteProjectModal.vue'
 import TheHeader from '@/components/TheHeader.vue'
 import ProjectFilters from '@/components/filters/ProjectFilters.vue'
 import { useProjects } from '@/composables/useProjects'
