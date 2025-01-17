@@ -65,9 +65,9 @@ Este projeto é uma aplicação web para gerenciamento de projetos, desenvolvida
 
 Os componentes foram organizados para manter a modularidade e reutilização:
 
-- **`HomeView.vue`**: Exibe a listagem de projetos.
-- **`ProjectCard.vue`**: Cartões individuais de projetos.
-- **`ModalBase.vue`**: Modal reutilizável para confirmação de exclusão.
+- `HomeView.vue`: Exibe a listagem de projetos.
+- `ProjectCard.vue`: Cartões individuais de projetos.
+- `ModalBase.vue`: Modal reutilizável para confirmação de exclusão.
 
 **Formulários:**
 
@@ -90,14 +90,14 @@ Os componentes foram organizados para manter a modularidade e reutilização:
 
 Os composables encapsulam a lógica de estado e ações:
 
-- **`useProjects`**: Lógica de manipulação de projetos.
-- **`useSearch`**: Lógica de busca e histórico recente.
-- **`useProjectForm`**: Gerenciamento do estado do formulário.
-- **`useProjectImage`**: Upload e remoção de imagens de capa.
+- `useProjects`: Lógica de manipulação de projetos.
+- `useSearch`: Lógica de busca e histórico recente.
+- `useProjectForm`: Gerenciamento do estado do formulário.
+- `useProjectImage`: Upload e remoção de imagens de capa.
 
 ### Store
 
-**Pinia** Utilizado para gerenciar o estado global da aplicação:
+**Pinia** utilizado para gerenciar o estado global da aplicação:
 
 - **Arquivo:** `projectStore.ts`
 - **Principais funcionalidades:**
@@ -127,8 +127,6 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
    - A preferência de um servidor local ao invés de serviços como Amazon S3 ou Supabase Storage é devido à simplicidade e controle no ambiente de desenvolvimento.
    - Reduziu dependências externas e custos adicionais para o ambiente atual.
 
----
-
 ## Fluxo da Aplicação
 
 1. **Listagem Inicial:**
@@ -152,8 +150,6 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
    - Limite de 5MB e suporte para JPG/PNG.
    - Feedback ao usuário em caso de erros.
 
----
-
 ## Configuração do Ambiente
 
 1. **Iniciando o Frontend:**
@@ -173,8 +169,6 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
    ```bash
    node imageServer.js
    ```
-
----
 
 ## Tecnologias Utilizadas
 
