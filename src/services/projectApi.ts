@@ -1,4 +1,4 @@
-import type { Project } from '../types/Project'
+import type { Project } from '../types/project'
 
 const API_URL = 'http://localhost:3000/projects'
 

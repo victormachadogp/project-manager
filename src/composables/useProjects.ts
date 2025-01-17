@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { useProjectStore } from '@/stores/projectStore'
-import type { Project, ProjectSortOption } from '@/types/Project'
+import type { Project, ProjectSortOption } from '@/types/project'
 
 export function useProjects() {
   const store = useProjectStore()

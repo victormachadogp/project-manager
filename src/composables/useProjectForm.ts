@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProjectStore } from '../stores/projectStore'
-import type { Project, ProjectFormData, ProjectFormErrors } from '../types/Project'
+import type { Project, ProjectFormData, ProjectFormErrors } from '../types/project'
 
 export function useProjectForm() {
   const route = useRoute()

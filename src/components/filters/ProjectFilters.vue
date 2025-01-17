@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProjectSortOption } from '@/types/Project';
+import type { ProjectSortOption } from '@/types/project';
 import FavoriteToggle from './FavoriteToggle.vue';
 import SortSelect from './SortSelect.vue';
 

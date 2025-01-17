@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProjectSortOption } from '@/types/Project';
+import type { ProjectSortOption } from '@/types/project';
 
 defineProps<{
     modelValue: ProjectSortOption

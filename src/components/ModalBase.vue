@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Project } from '../types/Project';
+import type { Project } from '../types/project';
 import IconTrash from './icons/IconTrash.vue';
 
 defineProps<{
