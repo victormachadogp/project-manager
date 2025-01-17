@@ -167,25 +167,55 @@ Os arquivos do diretório **Services** abstraem a comunicação com a API REST:
    - Limite de 5MB e suporte para JPG/PNG.
    - Feedback ao usuário em caso de erros.
 
-## Configuração do Ambiente
+# Configuração do Ambiente
 
-1. **Iniciando o Frontend:**
+## Instalação das Dependências
 
-   ```bash
-   npm install
-   npm run dev
-   ```
+1. **Frontend (Raiz do Projeto):**
 
-2. **Iniciando o Servidor de API:**
+```bash
+npm install
+```
 
-   ```bash
-   npm run json-server
-   ```
+2. **Servidor de Imagens:**
 
-3. **Iniciando o Servidor de Imagens:**
-   ```bash
-   node imageServer.js
-   ```
+```bash
+cd server
+npm install
+```
+
+## Iniciando os Serviços
+
+1. **Frontend (Em um terminal):**
+
+```bash
+# Na raiz do projeto
+npm run dev
+```
+
+2. **Servidor de API (Em outro terminal):**
+
+```bash
+# Na raiz do projeto
+npm run json-server
+```
+
+3. **Servidor de Imagens (Em outro terminal):**
+
+```bash
+node imageServer.js
+```
+
+## Portas Utilizadas
+
+- Frontend: http://localhost:5173
+- API: http://localhost:3000
+- Servidor de Imagens: http://localhost:3001
+
+## Observações
+
+- Certifique-se de que todas as dependências foram instaladas corretamente em ambos os diretórios (raiz e server)
+- O diretório `uploads` será criado automaticamente na primeira execução do servidor de imagens
 
 ## Tecnologias Utilizadas
 
