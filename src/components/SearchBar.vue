@@ -34,7 +34,6 @@ import IconSearch from './icons/IconSearch.vue'
 import IconX from './icons/IconX.vue'
 import { useSearch } from '@/composables/useSearch'
 
-const emit = defineEmits(['close'])
 const {
     searchInput,
     showRecentSearches,
