@@ -1,4 +1,4 @@
-const IMAGE_API_URL = 'http://localhost:3001/images'
+const IMAGE_API_URL = import.meta.env.VITE_IMAGE_API_URL || 'http://localhost:3001/images'
 
 export const imageApi = {
   async upload(file: File): Promise<string> {

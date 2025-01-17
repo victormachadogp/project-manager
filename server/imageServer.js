@@ -3,6 +3,17 @@ import express from 'express'
 import multer from 'multer'
 import path from 'path'
 import cors from 'cors'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const UPLOADS_DIR = path.join(__dirname, 'uploads')
+
+// Garantir que o diretório de uploads existe
+if (!fs.existsSync(UPLOADS_DIR)) {
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true })
+}
 
 const app = express()
 
@@ -11,7 +22,7 @@ app.use(cors())
 // Configurar multer para armazenamento
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads')
+    cb(null, UPLOADS_DIR)
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
@@ -33,8 +44,8 @@ const upload = multer({
   },
 })
 
-// Servir arquivos estáticos
-app.use('/uploads', express.static('public/uploads'))
+// Servir arquivos estáticos do novo diretório de uploads
+app.use('/uploads', express.static(UPLOADS_DIR))
 
 // Rota de upload
 app.post('/images/upload', upload.single('image'), (req, res) => {
@@ -47,6 +58,7 @@ app.post('/images/upload', upload.single('image'), (req, res) => {
   })
 })
 
+// Rota de delete
 app.delete('/images/delete', (req, res) => {
   const filePath = req.query.path
 
@@ -56,7 +68,7 @@ app.delete('/images/delete', (req, res) => {
 
   // Remove /uploads/ do início do caminho para obter apenas o nome do arquivo
   const fileName = filePath.replace('/uploads/', '')
-  const fullPath = path.join('public/uploads', fileName)
+  const fullPath = path.join(UPLOADS_DIR, fileName)
 
   fs.unlink(fullPath, (err) => {
     if (err) {
@@ -67,7 +79,7 @@ app.delete('/images/delete', (req, res) => {
   })
 })
 
-const PORT = 3001
+const PORT = process.env.IMAGE_SERVER_PORT || 3001
 app.listen(PORT, () => {
   console.log(`Servidor de imagens rodando na porta ${PORT}`)
 })
