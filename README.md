@@ -12,6 +12,7 @@
 > 2. Iniciar o servidor da API.
 >
 > - `cd server`
+> - `npm install`
 > - `npm run json-server`
 >
 > 3. Iniciar o servidor de imagens.
