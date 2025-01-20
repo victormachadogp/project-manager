@@ -19,6 +19,8 @@
 >
 > - `cd server`
 > - `node imageServer.js`
+>
+> Após isso lembre-se de configurar as [variáveis de ambiente](#configuração-das-variáveis-de-ambiente).
 
 ## Índice
 
